@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.elechelpcenter.dao.HelpCenterDocumentDao">
+    <resultMap id="HelpCenterDocumentMap" type="com.example.elechelpcenter.entity.HelpCenterDocument">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="LONGVARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="enabled" column="enabled" jdbcType="INTEGER"/>
+        <result property="tag" column="tag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HelpCenterDocumentMap">
+        select
+            id, title, content, update_user_name, update_user_id, create_time, update_time, enabled, tag
+        from help_center_document_t
+        where id = #{id}
+    </select>
+
+    <!--根据title查询单个-->
+    <select id="queryByTitle" resultMap="HelpCenterDocumentMap">
+        select
+            id, title, content, update_user_name, update_user_id, create_time, update_time, enabled, tag
+        from help_center_document_t
+        where title = #{title}
+    </select>
+
+    <!--查询指定行信息-->
+    <select id="queryAllByLimit" resultMap="HelpCenterDocumentMap">
+        select
+            id, title, content, update_user_name, update_user_id, create_time, update_time, enabled, tag
+        from help_center_document_t
+                 limit #{offset},#{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="HelpCenterDocumentMap">
+        select
+        id, title, content, update_user_name, update_user_id, create_time, update_time, enabled, tag
+        from help_center_document_t
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="updateUserName != null and updateUserName != ''">
+                and update_user_name = #{updateUserName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into help_center_document_t(title, content)
+        values (#{title}, #{content})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update help_center_document_t
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="updateUserName != null and updateUserName != ''">
+                update_user_name = #{updateUserName},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+                update_time = now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        update help_center_document_t set enabled = 0 where id = #{id}
+    </delete>
+</mapper>
