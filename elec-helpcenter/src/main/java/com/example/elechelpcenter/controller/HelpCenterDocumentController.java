@@ -18,8 +18,8 @@ public class HelpCenterDocumentController {
     @Autowired
     HelpCenterDocumentService helpCenterDocumentService;
 
-    @GetMapping("/helpCenter/document/{id}")
-    public JsonResult getDocumentById(@PathVariable Integer id){
+    @GetMapping("/helpCenter/document/i/{id}")
+    public JsonResult getDocumentById(@PathVariable(value = "id") Integer id){
         HelpCenterDocument document = helpCenterDocumentService.queryById(id);
         if(document == null){
             return ResultTool.fail();
@@ -29,8 +29,8 @@ public class HelpCenterDocumentController {
         return ResultTool.success(document);
     }
 
-    @GetMapping("/helpCenter/document/{title}")
-    public JsonResult getDocumentByTitle(@PathVariable String title){
+    @GetMapping("/helpCenter/document/t/{title}")
+    public JsonResult getDocumentByTitle(@PathVariable(value = "title") String title){
         HelpCenterDocument document = helpCenterDocumentService.queryByTitle(title);
         if(document == null){
             return ResultTool.fail();
