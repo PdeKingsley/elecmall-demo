@@ -5,6 +5,8 @@ import com.example.elechelpcenter.common.utils.HtmlTool;
 import com.example.elechelpcenter.common.utils.ResultTool;
 import com.example.elechelpcenter.entity.HelpCenterDocument;
 import com.example.elechelpcenter.service.HelpCenterDocumentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelpCenterDocumentController {
     @Autowired
     HelpCenterDocumentService helpCenterDocumentService;
+    Logger logger = LoggerFactory.getLogger(HelpCenterDocument.class);
 
     @GetMapping("/helpCenter/document/i/{id}")
     public JsonResult getDocumentById(@PathVariable(value = "id") Integer id){
         HelpCenterDocument document = helpCenterDocumentService.queryById(id);
+        logger.debug("zheshishenmenie");
         if(document == null){
             return ResultTool.fail();
         }
