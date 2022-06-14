@@ -24,7 +24,7 @@ public class HelpCenterDocumentController {
     @GetMapping("/helpCenter/document/i/{id}")
     public JsonResult getDocumentById(@PathVariable(value = "id") Integer id){
         HelpCenterDocument document = helpCenterDocumentService.queryById(id);
-        logger.debug("zheshishenmenie");
+        logger.error("zheshishenmenie");
         if(document == null){
             return ResultTool.fail();
         }
