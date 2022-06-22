@@ -5,9 +5,9 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 低版本需加上&serverTimezone=CTT
-    url: jdbc:mysql://localhost:3306/elec_mall?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/elecmall?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: 123456
+    password:
     hikari:
       minimum-idle: 5
       idle-timeout: 600000
